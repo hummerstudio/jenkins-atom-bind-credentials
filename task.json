@@ -1,0 +1,93 @@
+{
+  "atomCode": "bind-credentials",
+  "name": "Bind credentials",
+  "version": "1.0.0",
+  "description": "Puts the credentials the runner resolved where tools expect them: variables, 0600 files, a dotenv file.",
+  "execution": {
+    "packagePath": "bind-credentials.jar",
+    "language": "java",
+    "target": "$atom_java_path -cp bind-credentials.jar com.jenkinschina.atom.sdk.AtomRunner"
+  },
+  "input": {
+    "secretTextAs": {
+      "label": "secretText 绑定成哪个变量",
+      "type": "vuex-input",
+      "default": ""
+    },
+    "usernameAs": {
+      "label": "username 绑定成哪个变量",
+      "type": "vuex-input",
+      "default": ""
+    },
+    "passwordAs": {
+      "label": "password 绑定成哪个变量",
+      "type": "vuex-input",
+      "default": ""
+    },
+    "sshKeyFile": {
+      "label": "sshKey 写到哪个文件（0600）",
+      "type": "vuex-input",
+      "default": ""
+    },
+    "certificateFile": {
+      "label": "certificate 写到哪个文件",
+      "type": "vuex-input",
+      "default": ""
+    },
+    "secretTextFile": {
+      "label": "secretText 写到哪个文件",
+      "type": "vuex-input",
+      "default": ""
+    },
+    "envFile": {
+      "label": "额外写一个 dotenv 文件（docker --env-file 用）",
+      "type": "vuex-input",
+      "default": ""
+    },
+    "fileMode": {
+      "label": "文件权限",
+      "type": "selector",
+      "default": "600",
+      "options": [
+        "600",
+        "400"
+      ]
+    },
+    "failOnMissing": {
+      "label": "缺少某个凭据时记录提示",
+      "type": "checkbox",
+      "default": "true"
+    }
+  },
+  "output": {
+    "bound": {
+      "type": "string",
+      "description": "已绑定的凭据名"
+    },
+    "count": {
+      "type": "string",
+      "description": "数量"
+    },
+    "files": {
+      "type": "string",
+      "description": "写出的文件"
+    },
+    "credentialFiles": {
+      "type": "artifact",
+      "description": "归档的凭据文件"
+    }
+  },
+  "x-jenkins": {
+    "protocol": "jenkins-1",
+    "requires": {
+      "runner": ">=0.4.0"
+    },
+    "secrets": {
+      "secretText": "",
+      "username": "",
+      "password": "",
+      "sshKey": "",
+      "certificate": ""
+    }
+  }
+}

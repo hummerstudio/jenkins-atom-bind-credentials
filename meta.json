@@ -1,0 +1,11 @@
+{
+  "name": "Bind credentials",
+  "summary": "Puts the credentials the runner resolved where tools expect them: variables, 0600 files, a dotenv file.",
+  "author": "hummerstudio",
+  "license": "MIT",
+  "tags": [
+    "official-port",
+    "credentials-binding"
+  ],
+  "homepage": "https://github.com/hummerstudio/jenkins-atom-bind-credentials"
+}
