@@ -11,7 +11,11 @@ run "$dir" >"$dir/log.txt" 2>&1 || fail "run failed: $(cat "$dir/log.txt")"
 [ "$(status "$dir")" = "success" ] || fail "not a success"
 [ "$(output "$dir" API_TOKEN)" = "s3cr3t" ] || fail "variable"
 [ -f "$dir/secrets/deploy.key" ] || fail "key file missing"
-[ "$(stat -f '%Lp' "$dir/secrets/deploy.key")" = "600" ] || fail "key file must be 0600"
+python3 - "$dir/secrets/deploy.key" <<'PY'
+import os, stat, sys
+mode = stat.S_IMODE(os.stat(sys.argv[1]).st_mode)
+assert mode == 0o600, oct(mode)
+PY
 grep -q "API_TOKEN=s3cr3t" "$dir/build.env" || fail "dotenv"
 grep -q "s3cr3t" "$dir/log.txt" && fail "secret leaked to the log"
 
